@@ -13,7 +13,6 @@
                 <ul>
                     <li><a href='/trucks'>View trucks</a></li>
                     <li><a href='/add-truck'>Add new truck</a></li>
-                    <li><a href='/update-truck'>Trucks subunits</a></li>
                 </ul>
             </p>
         </div>

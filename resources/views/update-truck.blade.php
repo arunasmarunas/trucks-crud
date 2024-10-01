@@ -14,10 +14,21 @@
             </ul>
         </p>
 
+        <!-- Display Validation Errors -->
+        @if ($errors->any())
+            <div>
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+
         <!-- Update Truck Form -->
         <form action="{{ route('trucks.update', $truck->id) }}" method="POST">
-            @csrf
-            @method('PUT')
+            @csrf <!-- CSRF token, form security -->
+            @method('PUT') <!-- PUT/update request -->
 
             <div>
                 <label for="unit_number">Unit Number:</label>
@@ -38,61 +49,6 @@
                 <button type="submit">Update Truck</button>
             </div>
         </form>
-
-        <h2>Subunits</h2>
-        <table>
-            <thead>
-                <tr>
-                    <th>Subunit</th>
-                    <th>Start Date</th>
-                    <th>End Date</th>
-                </tr>
-            </thead>
-            <tbody>
-                @if ($subunits->isEmpty())
-                    <tr>
-                        <td colspan="3">No subunits for this truck.</td>
-                    </tr>
-                @else
-                    @foreach ($subunits as $subunit)
-                        <tr>
-                            <td>{{ $subunit->subunit }}</td>
-                            <td>{{ $subunit->start_date }}</td>
-                            <td>{{ $subunit->end_date }}</td>
-                        </tr>
-                    @endforeach
-                @endif
-            </tbody>
-        </table>
-
-        <!-- Add Subunit Form -->
-        <form action="{{ route('trucks.edit', $truck->id) }}" method="POST">
-            @csrf
-            <input type="hidden" name="add_subunit" value="1">
-            <div>
-                <label for="subunit">Subunit:</label>
-                <select id="subunit" name="subunit" required>
-                    <option value="">Select Subunit Truck</option>
-                    @foreach ($allTrucks as $subunitTruck)
-                        <option value="{{ $subunitTruck->id }}">{{ $subunitTruck->unit_number }}</option>
-                    @endforeach
-                </select>
-            </div>
-
-            <div>
-                <label for="start_date">Start Date:</label>
-                <input type="date" id="start_date" name="start_date" required>
-            </div>
-
-            <div>
-                <label for="end_date">End Date:</label>
-                <input type="date" id="end_date" name="end_date" required>
-            </div>
-
-            <div>
-                <button type="submit">Add Subunit</button>
-            </div>
-        </form>
     </div>
 </body>
-</html
+</html>

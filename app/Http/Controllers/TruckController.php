@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Truck;
-use App\Models\TruckSubunit;
 use Illuminate\Http\Request;
 
 class TruckController extends Controller
@@ -64,27 +63,19 @@ class TruckController extends Controller
      */
     public function edit(Truck $truck)
     {
-        // Fetch subunits for the truck
-        $subunits = TruckSubunit::where('main_truck', $truck->id)->get(); // Get subunits
-        $allTrucks = Truck::all(); // Get all trucks for subunit selection
-
-        // Return the view for editing the truck along with its subunits
-        return view('update-truck', compact('truck', 'subunits', 'allTrucks')); 
+        return view('update-truck', compact('truck')); // Return the form view for editing a truck
     }
 
     /**
-     * Update the specified resource/truck in DB, including subunits
+     * Update the specified resource/truck in DB
      */
     public function update(Request $request, Truck $truck)
     {
-        // Validate the incoming request data for truck
+        // Validate the incoming request data
         $request->validate([
             'unit_number' => 'required|string|max:255|unique:trucks,unit_number,' . $truck->id,
             'year' => 'required|integer|min:1900|max:' . (date('Y') + 5),
             'notes' => 'nullable|string',
-            'subunit' => 'required|exists:trucks,id|not_in:' . $truck->id, // Validate subunit
-            'start_date' => 'required|date|date_format:Y-m-d',
-            'end_date' => 'required|date|date_format:Y-m-d|after_or_equal:start_date',
         ]);
 
         // Update the truck record in the database
@@ -94,28 +85,8 @@ class TruckController extends Controller
             'notes' => $request->notes,
         ]);
 
-        // Check for overlapping dates
-        $overlap = TruckSubunit::where('main_truck', $truck->id)
-            ->where(function ($query) use ($request) {
-                $query->whereBetween('start_date', [$request->start_date, $request->end_date])
-                      ->orWhereBetween('end_date', [$request->start_date, $request->end_date]);
-            })
-            ->exists();
-
-        if ($overlap) {
-            return redirect()->back()->withErrors(['overlap' => 'Subunit dates cannot overlap with existing subunits.']);
-        }
-
-        // Save the subunit to the database
-        TruckSubunit::create([
-            'main_truck' => $truck->id,
-            'subunit' => $request->subunit,
-            'start_date' => $request->start_date,
-            'end_date' => $request->end_date,
-        ]);
-
         // Redirect to the index route with a success message
-        return redirect()->route('trucks.index')->with('success', 'Truck updated successfully and subunit added!');
+        return redirect()->route('trucks.index')->with('success', 'Truck updated successfully!');
     }
 
     /**
