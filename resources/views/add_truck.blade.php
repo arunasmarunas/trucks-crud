@@ -13,12 +13,10 @@
     </head>
     <body class="font-sans antialiased dark:bg-black dark:text-white/50">
         <div class="bg-gray-50 text-black/50 dark:bg-black dark:text-white/50">
-            Trucks CRUD - Dashboard
+            Trucks CRUD - Add new Truck
             <p>
                 <ul>
-                    <li><a href='/trucks'>View trucks</a></li>
-                    <li><a href='/add-truck'>Add new truck</a></li>
-                    <li><a href='/update-truck'>Add trucks subunits</a></li>
+                    <li><a href='/'>Back to Home</a></li>
                 </ul>
             </p>
         </div>
