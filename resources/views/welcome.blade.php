@@ -5,20 +5,15 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <title>Trucks CRUD</title>
-
-        <!-- Fonts -->
-        <link rel="preconnect" href="https://fonts.bunny.net">
-        <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
-
     </head>
-    <body class="font-sans antialiased dark:bg-black dark:text-white/50">
-        <div class="bg-gray-50 text-black/50 dark:bg-black dark:text-white/50">
-            Trucks CRUD - Dashboard
+    <body>
+        <div>
+            <h1>Trucks CRUD - Dashboard</h1>
             <p>
                 <ul>
                     <li><a href='/trucks'>View trucks</a></li>
                     <li><a href='/add-truck'>Add new truck</a></li>
-                    <li><a href='/update-truck'>Add trucks subunits</a></li>
+                    <li><a href='/update-truck'>Trucks subunits</a></li>
                 </ul>
             </p>
         </div>
