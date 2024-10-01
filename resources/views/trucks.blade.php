@@ -33,7 +33,8 @@
                                 <td>{{ $truck->year }}</td>
                                 <td>{{ $truck->notes }}</td>
                                 <td>
-                                    <a href="{{ route('trucks.edit', $truck->id) }}">Edit truck/Add subunit</a>
+                                    <a href="{{ route('update-truck-subunit.edit', $truck->id) }}">Add subunit</a>
+                                    <a href="{{ route('trucks.edit', $truck->id) }}">Edit truck</a>
                                     <form action="{{ route('trucks.destroy', $truck->id) }}" method="POST" style="display:inline;">
                                         @csrf
                                         @method('DELETE')
